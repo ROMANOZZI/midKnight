@@ -915,7 +915,7 @@ GameObject:
   - component: {fileID: 1519917264}
   - component: {fileID: 1519917263}
   m_Layer: 0
-  m_Name: Square
+  m_Name: flyingEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1021,7 +1021,7 @@ GameObject:
   - component: {fileID: 1734228134}
   - component: {fileID: 1734228133}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
