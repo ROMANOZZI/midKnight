@@ -10,6 +10,7 @@ public class knightAttack : MonoBehaviour
     public float attackRange;
     public int attackDamage;
     public LayerMask enemyLayer;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class knightAttack : MonoBehaviour
              foreach (Collider2D item in enemies)
              {
                  Debug.Log("hit" + item.name);
+                 item.GetComponent<enemyHealth>().TakeDamage(attackDamage);
              }}
            
         }
