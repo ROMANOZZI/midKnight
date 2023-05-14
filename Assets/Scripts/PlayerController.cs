@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckCollider;
     public float groundCheckRadius = 0.1f;
     public LayerMask groundLayer;
+    public bool isAttacking;
 
     void Start()
     {
@@ -24,11 +25,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Check for left and right arrow keys
+        isAttacking = animator.GetBool("isAttacking");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         // Move the player left or right
         transform.position += new Vector3(horizontalInput, 0, 0) * speed * Time.deltaTime;
-        animator.SetFloat("speed", Mathf.Abs(horizontalInput));
+        if (!isJumping&&!isAttacking){
+        animator.SetFloat("speed", Mathf.Abs(horizontalInput));}
         animator.SetFloat("jump", rb.velocity.y);
 
         // Rotate the player left or right based on movement direction
@@ -61,8 +64,8 @@ public class PlayerController : MonoBehaviour
     {
         
         isGrounded = Physics2D.OverlapCircle(groundCheckCollider.position, groundCheckRadius, groundLayer);
-        
-         animator.SetBool("isJumping", !isGrounded);
+        isJumping = !isGrounded;
+         animator.SetBool("isJumping", isJumping);
     }
     private void OnDrawGizmos()
     {

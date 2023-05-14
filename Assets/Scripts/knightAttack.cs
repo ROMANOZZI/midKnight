@@ -6,7 +6,7 @@ public class knightAttack : MonoBehaviour
 {
     public Animator playerAnim;
     public float attackDelay;
-    public Transform weaponTransform;
+    public GameObject weapon;
     public float attackRange;
     public int attackDamage;
     public LayerMask enemyLayer;
@@ -20,19 +20,32 @@ public class knightAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(Input.GetButtonDown ("Fire1"))
         {
-           StartCoroutine(Attack());
-        }}
-        IEnumerator Attack()
+           playerAnim.SetBool("isAttacking", true);
+          
+        }
+        
+        }
+        public void Attack()
         {
-            playerAnim.Play("attackanim");
-            Collider2D enemies = Physics2D.OverlapCircle(weaponTransform.position, attackRange, enemyLayer);
-          yield return new WaitForSeconds(attackDelay);
-           enemies.GetComponent<enemyHealth>().TakeDamage(attackDamage);
+          
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(weapon.transform.position, attackRange, enemyLayer);
+            if (enemies.Length > 0){
+             foreach (Collider2D item in enemies)
+             {
+                 Debug.Log("hit" + item.name);
+             }}
+           
         }
             
-           
-    
+public  void endAttack()
+ {
+     playerAnim.SetBool("isAttacking", false);
+ }  
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(weapon.transform.position, attackRange);
     }
-
+}
