@@ -1,13 +1,20 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;       // Player movement speed
-    public float jumpForce = 5f;   // Player jump force
-
+    public float jumpForce = 10f;   // Player jump force
+    public float groundCheckDistance = 0.1f;
     private Rigidbody2D rb;        // Player rigidbody
+    public Animator animator;      // Player animator
+    public bool isGrounded;        // Is the player on the ground?
+    public bool isJumping;         // Is the player jumping?
+
+    public Transform groundCheckCollider;
+    public float groundCheckRadius = 0.1f;
+    public LayerMask groundLayer;
 
     void Start()
     {
@@ -15,28 +22,50 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-{
-    // Check for left and right arrow keys
-    float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-    // Move the player left or right
-    transform.position += new Vector3(horizontalInput, 0, 0) * speed * Time.deltaTime;
-
-    // Rotate the player left or right based on movement direction
-    if (horizontalInput < 0)
     {
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-    }
-    else if (horizontalInput > 0)
-    {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        // Check for left and right arrow keys
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        // Move the player left or right
+        transform.position += new Vector3(horizontalInput, 0, 0) * speed * Time.deltaTime;
+        animator.SetFloat("speed", Mathf.Abs(horizontalInput));
+        animator.SetFloat("jump", rb.velocity.y);
+
+        // Rotate the player left or right based on movement direction
+        if (horizontalInput < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (horizontalInput > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        // Check for jump key
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
+        // Update jumping animation
+       
     }
 
-    // Check for jump key
-    if (Input.GetKeyDown(KeyCode.Space))
+    void FixedUpdate()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        GroundCheck();
+       
     }
+
+    void GroundCheck()
+    {
+        
+        isGrounded = Physics2D.OverlapCircle(groundCheckCollider.position, groundCheckRadius, groundLayer);
+        
+         animator.SetBool("isJumping", !isGrounded);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(groundCheckCollider.position, groundCheckRadius);
+    } 
 }
-}
-
