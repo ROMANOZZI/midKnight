@@ -17,11 +17,14 @@ public class followCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Calculate the target position for the camera
-        Vector3 desiredPosition = target.position + offset;
+        if (target != null)
+        {
+            // Calculate the target position for the camera
+            Vector3 desiredPosition = target.position + offset;
 
-        // Move the camera smoothly towards the target position
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
+            // Move the camera smoothly towards the target position
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothedPosition;
+        }
     }
 }
