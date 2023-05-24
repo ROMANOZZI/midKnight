@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     private bool isTakingDamage;
     public AudioSource damageSound;
     public Animator animator;
+  
 
     private Coroutine damageCoroutine;
 
@@ -52,6 +53,10 @@ public class PlayerHealth : MonoBehaviour
             animator.SetBool("isDead", true);
             
         }
+
+     
+        
+      
     }
 
     public void Heal(int healAmount)
@@ -66,6 +71,18 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.SetBool("isTakingDamage", true);
             isTakingDamage = true;
+        }
+    }
+       // check if collison is with knife and then die
+    void OnCollisionEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("knives"))
+        {
+            Debug.Log("knife hit");
+            animator.SetBool("isDead", true);
+            Die();
+            
+
         }
     }
 

@@ -10,6 +10,7 @@ public class knightAttack : MonoBehaviour
     public float attackRange;
     public int attackDamage;
     public LayerMask enemyLayer;
+    public AudioSource attackSound;
     
 
     // Start is called before the first frame update
@@ -24,6 +25,10 @@ public class knightAttack : MonoBehaviour
         
         if(Input.GetButtonDown ("Fire1"))
         {
+            if(attackSound.isPlaying == false){
+            attackSound.Play();
+
+            }
            playerAnim.SetBool("isAttacking", true);
           
         }
