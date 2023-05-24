@@ -8,11 +8,14 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     private bool isTakingDamage;
+    public AudioSource damageSound;
+    public Animator animator;
 
     private Coroutine damageCoroutine;
 
     void Start()
     {
+        animator.SetBool("isDead", false);
         currentHealth = maxHealth;
         isTakingDamage = false;
     }
@@ -31,20 +34,23 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void TakeDamage(int damageAmount)
+
     {
+        if (currentHealth== maxHealth)
+        {
+            damageSound.Play();
+        }
         currentHealth -= damageAmount;
 
         if (currentHealth <= 0)
         {
             // Player is defeated or dies
-            Debug.Log("Player defeated");
+            
             // Add additional code here for player death, like game over or resetting the level
 
             // Destroy the player object
-            Destroy(gameObject);
-
-            // Restart the level instantly
-            RestartLevel();
+            animator.SetBool("isDead", true);
+            
         }
     }
 
@@ -58,6 +64,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            animator.SetBool("isTakingDamage", true);
             isTakingDamage = true;
         }
     }
@@ -66,6 +73,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            animator.SetBool("isTakingDamage", false);
             isTakingDamage = false;
         }
     }
@@ -79,7 +87,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void RestartLevel()
+    public void RestartLevel()
     {
         // Restart the level or perform any other necessary actions
         // You can replace the code below with your desired restart logic
@@ -89,5 +97,10 @@ public class PlayerHealth : MonoBehaviour
 
         // Load the current scene again to restart
         SceneManager.LoadScene(currentSceneIndex);
+    }
+    public void Die()
+    {
+        Destroy(gameObject);
+        RestartLevel();
     }
 }

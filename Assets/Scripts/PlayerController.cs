@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.1f;
     public LayerMask groundLayer;
     public bool isAttacking;
-
+    public AudioSource jumpSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpSound.Play();
         }
 
         // Update jumping animation
@@ -66,6 +67,9 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckCollider.position, groundCheckRadius, groundLayer);
         isJumping = !isGrounded;
          animator.SetBool("isJumping", isJumping);
+         
+             
+        
     }
     private void OnDrawGizmos()
     {
