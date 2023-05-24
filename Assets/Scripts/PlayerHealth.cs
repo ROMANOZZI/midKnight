@@ -72,20 +72,17 @@ public class PlayerHealth : MonoBehaviour
             animator.SetBool("isTakingDamage", true);
             isTakingDamage = true;
         }
-    }
-       // check if collison is with knife and then die
-    void OnCollisionEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("knives"))
+         if (collision.gameObject.CompareTag("knives"))
         {
             Debug.Log("knife hit");
             animator.SetBool("isDead", true);
-            Die();
+            
             
 
         }
     }
-
+       // check if collison is with knife and then die
+    
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
