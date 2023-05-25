@@ -8,6 +8,8 @@ TagManager:
   - knives
   - Goblin
   - Tag
+  - Wall
+  - Gate
   layers:
   - Default
   - TransparentFX

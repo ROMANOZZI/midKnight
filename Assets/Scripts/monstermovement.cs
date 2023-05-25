@@ -35,6 +35,7 @@ public class monstermovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Change the direction of the monster to the opposite direction
+        if (collision.gameObject.CompareTag("Wall"))
         direction *= -1;
     }
 }

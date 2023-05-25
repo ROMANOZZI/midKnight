@@ -107,10 +107,10 @@ public class PlayerHealth : MonoBehaviour
         // You can replace the code below with your desired restart logic
 
         // Get the current scene index
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
 
         // Load the current scene again to restart
-        SceneManager.LoadScene(currentSceneIndex);
+        SceneManager.LoadScene("GAME OVER");
     }
     public void Die()
     {

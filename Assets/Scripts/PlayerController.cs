@@ -1,7 +1,7 @@
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;       // Player movement speed
@@ -75,4 +75,13 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawWireSphere(groundCheckCollider.position, groundCheckRadius);
     } 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if the collision occurred with the player or a specific object
+        if (collision.gameObject.CompareTag("Gate"))
+        {
+            // Load the specified scene
+            SceneManager.LoadScene("Winner!!");
+        }
+    }
 }
