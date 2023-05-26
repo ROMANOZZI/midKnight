@@ -10,6 +10,7 @@ TagManager:
   - Tag
   - Wall
   - Gate
+  - weapon
   layers:
   - Default
   - TransparentFX

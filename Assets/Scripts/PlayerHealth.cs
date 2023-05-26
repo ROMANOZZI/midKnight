@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isTakingDamage && damageCoroutine == null)
         {
-            damageCoroutine = StartCoroutine(TakeDamageRepeatedly(10)); // Adjust the damage amount as needed
+            damageCoroutine = StartCoroutine(TakeDamageRepeatedly(5)); // Adjust the damage amount as needed
         }
         else if (!isTakingDamage && damageCoroutine != null)
         {

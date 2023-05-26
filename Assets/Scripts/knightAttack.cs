@@ -35,15 +35,17 @@ public class knightAttack : MonoBehaviour
         
         }
         public void Attack()
-        {
+        { 
+            
           
             Collider2D[] enemies = Physics2D.OverlapCircleAll(weapon.transform.position, attackRange, enemyLayer);
             if (enemies.Length > 0){
              foreach (Collider2D item in enemies)
              {
-                 Debug.Log("hit" + item.name);
-                 item.GetComponent<enemyHealth>().TakeDamage(attackDamage);
+                 Debug.Log("hit");
+                 item.GetComponent<enemyHealth>().TakeDamage(10);
              }}
+             
            
         }
             
